@@ -1,0 +1,92 @@
+class Solution {
+
+    // public static boolean KyaBanana(int mid, int[] piles, int h)
+    // {
+    //     long totalTime = 0;
+    //     for(int i=0; i<piles.length; i++)
+    //     {
+    //         totalTime += piles[i]/mid;
+    //         if(piles[i]%mid != 0)
+    //         {
+    //             totalTime++;
+    //         }
+    //     }
+    //     return totalTime <= h;
+    //     // if(totalTime <= h)
+    //     // {
+    //     //     return true;
+    //     // }
+    //     // return false;
+    // }
+    public int minEatingSpeed(int[] piles, int h) {
+
+    //     int low = 1;
+    //     int high = 0;
+
+    //     for(int banana : piles)
+    //     {
+    //         high = Math.max(high,banana);
+    //     }
+    //     int ans=0;
+    //     while(low<=high)
+    //     {
+    //         int mid = low + (high-low)/2;
+    //         if(KyaBanana(mid,piles,h))
+    //         {
+    //             ans = mid;
+    //             high = mid-1;
+    //         }
+    //         else
+    //         {
+    //             low = mid+1;
+    //         }
+    //     }
+    //     return ans;
+        
+        int low = 1;
+        int high = 0;
+
+        for (int i = 0; i < piles.length; i++) {
+            if (piles[i] > high) {
+                high = piles[i];
+            }
+        }
+
+       
+        while (low<high) {
+
+            int mid = (low + high) / 2;
+
+            if (khaPayega(piles, h, mid)) {
+                high = mid;        
+            } else {
+                low = mid + 1;     
+            }
+        }
+
+        return low;   
+    }
+
+    public boolean khaPayega(int[] piles, int h, int mid) {
+
+        int Total_time = 0;
+
+        for (int i = 0; i < piles.length; i++) {
+
+            
+            int hours = piles[i] / mid;
+
+            if (piles[i] % mid != 0) {
+                hours = hours + 1;
+            }
+
+            Total_time = Total_time + hours;
+        }
+
+        if (Total_time <= h) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
