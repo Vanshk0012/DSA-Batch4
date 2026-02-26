@@ -1,0 +1,31 @@
+class Solution {
+    public int numberOfSubarrays(int[] nums, int k) {
+        int i = 0, j = 0, curr_sum = 0, count = 0, zero_count = 0;
+        int n = nums.length;
+
+        while (j < n) {
+
+            curr_sum += nums[j] % 2;
+
+            while (i < j && (curr_sum > k || nums[i] % 2 == 0)) {
+
+                if (nums[i] % 2 == 1) {
+                    zero_count = 0;
+                } else {
+                    zero_count++;
+                }
+
+                curr_sum -= nums[i] % 2;
+                i++;
+            }
+
+            if (curr_sum == k) {
+                count += 1 + zero_count;
+            }
+
+            j++;
+        }
+
+        return count;
+    }
+}
